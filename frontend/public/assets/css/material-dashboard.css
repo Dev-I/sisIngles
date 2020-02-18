@@ -19112,7 +19112,8 @@ a .material-icons {
 .fixed-plugin .btn.btn-primary.focus,
 .fixed-plugin .btn.btn-primary:hover {
     color: #fff;
-    background-color: #9124a3;
+    /* background-color: #00315b; */
+    background-color: #900;
     border-color: #701c7e;
 }
 
@@ -19652,8 +19653,9 @@ a .material-icons {
 .fixed-plugin .btn.btn-rose.focus,
 .fixed-plugin .btn.btn-rose:hover {
     color: #fff;
-    background-color: #ea2c6d;
-    border-color: #b8124a;
+    /* #00315b */
+    background-color: #00315b;
+    border-color: #00315b;
 }
 
 .fixed-plugin .btn.btn-rose:active,

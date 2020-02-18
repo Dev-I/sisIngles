@@ -1,6 +1,6 @@
 const courseLevelCtrl = {};
 
-const CoursesLevel = require('../models/CourseLevel');
+const CoursesLevel = require('../models/CourseLevel.model');
 
 courseLevelCtrl.getCourseLevels = async(req,res)=>{
     try {

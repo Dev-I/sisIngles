@@ -2,17 +2,16 @@ const studentCtrl = {};
 const { request} = require ('graphql-request')
 const endpoint = "http://api-iti.herokuapp.com/graphql";
 const queries = require('../queries/queriesStudent');
-const Student = require('../models/Student');
+const Student = require('../models/Student.model');
 
 studentCtrl.getStudents = async (req, res) => {
     try {
-        // const student = await Student.find();
-        // res.json(student);
         const data = await request (endpoint, queries.getStudents)
-        console.log(JSON.stringify(data.getStudents,undefined,2))
+        //console.log(JSON.stringify(data.getStudents,undefined,2))
+        console.log("[ datos del estidiante recibidos ]")
         res.status(200).json({
-            status:"succes",
-            students: data.getStudents 
+           // status: "datos recibidos",
+            students: data.getStudents
         })
     }
     catch (err) {
@@ -22,16 +21,29 @@ studentCtrl.getStudents = async (req, res) => {
     }
 };
 
-studentCtrl.getStudent = async (req, res) => {
+
+// studentCtrl.getStudents = async(req,res)=>{
+//     try {
+//         const students = await Student.find();
+//         res.json(students);
+//     }
+//     catch (err) {
+//         res.status(400).json({
+//             error: err
+//         });
+//     }
+// };
+
+studentCtrl.getStudentNumero_control = async (req, res) => {
     try {
         const student = {
-            id: req.params.id
+            numero_control: req.params.numero_control
         }
-        const data = await request(endpoint, queries.getStudent, student)
-        console.log(JSON.stringify(data.getStudent, undefined, 2))
+        const data = await request(endpoint, queries.getStudentNumero_control, student)
+        console.log(JSON.stringify(data.getStudentNumero_control, undefined, 2))
         res.status(200).json({
             status:"succes",
-            student: data.getStudent 
+            student: data.getStudentNumero_control 
         })
     }
     catch (err) {
@@ -40,26 +52,20 @@ studentCtrl.getStudent = async (req, res) => {
             message: error
         });
     }
-};
+ };
 
 studentCtrl.createStudent = async (req, res) => {
     try {
-        const {name,
-            enrollment,
-            phone,
-            professional_career,
-            email,
-            course_level}  = req.body;
+        const {
+            name,
+            registration_number }  = req.body;
 
         const newStudent = new Student({
-                name,
-                enrollment,
-                phone,
-                professional_career,
-                email,
-                course_level});
+            name,
+            registration_number });
         await newStudent.save();
-        res.json('Estudiante creado');
+        const students = await Student.find();
+        res.json(students);
         console.log('datos guardados');
     } catch (e) {
         console.log(e)
@@ -87,9 +93,30 @@ studentCtrl.updateStudent = async(req, res)=> {
 }
 
 studentCtrl.deleteStudent = async (req, res) => {
-    const { id } = req.params;
-    await Student.findByIdAndDelete(id);
+    await Student.findByIdAndDelete(req.params.id);
     res.json('Estudiante eliminado');
 }
+ 
+module.exports = studentCtrl; 
 
-module.exports = studentCtrl;
+
+
+// studentCtrl.getStudent = async (req, res) => {
+//     try {
+//         const student = {
+//             id: req.params.id
+//         }
+//         const data = await request(endpoint, queries.getStudent, student)
+//         console.log(JSON.stringify(data.getStudent, undefined, 2))
+//         res.status(200).json({
+//             status:"succes",
+//             student: data.getStudent 
+//         })
+//     }
+//     catch (err) {
+//         res.status(400).json({
+//             status:"Fail",
+//             message: error
+//         });
+//     }
+// };

@@ -6,6 +6,7 @@ class Footer extends Component {
     render() {
         return (
             <Fragment>
+                  
                 <footer className="footer">
                     <div className="container-fluid">
                         <nav className="float-left">

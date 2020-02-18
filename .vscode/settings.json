@@ -1,0 +1,8 @@
+{
+    "search.quickOpen.includeSymbols": true,
+    "search.showLineNumbers": true,
+    "search.searchOnTypeDebouncePeriod": 30,
+    "editor.fontSize": 13
+
+    
+}
