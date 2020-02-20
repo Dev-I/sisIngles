@@ -70,7 +70,7 @@ render(){
                                             <input type="date" className="form-control" name="start" onChange={this.onInputChange} />
                                         </div>
 
-                                        <div className=" form-group col-md-4">
+                                        <div className="form-group col-md-4">
                                             <label className="">final</label>
                                             <input type="date" className="form-control" name="finish" onChange={this.onInputChange} />
                                         </div>

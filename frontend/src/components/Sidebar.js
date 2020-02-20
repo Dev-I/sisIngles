@@ -93,13 +93,13 @@ class Sidebar extends Component {
                                          <span className="sidebar-normal"> Todos los estudiantes </span>
                                         </Link>    
                                     </li>
-
+{/* 
                                         <li className="nav-item">
                                             <Link to={'/student/new'} className="nav-link" >
                                             <span className="sidebar-mini"> NE </span>
                                                 <span className="sidebar-normal"> Nuevo Estudiante </span>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item">
                                             <Link to={'/student/buscar'} className="nav-link" >
                                             <span className="sidebar-mini"> TD </span>

@@ -4,28 +4,15 @@ const endpoint = "http://api-iti.herokuapp.com/graphql";
 const queries = require('../queries/queriesStudent');
 const Student = require('../models/Student.model');
 
-studentCtrl.getStudents = async (req, res) => {
-    try {
-        const data = await request (endpoint, queries.getStudents)
-        //console.log(JSON.stringify(data.getStudents,undefined,2))
-        console.log("[ datos del estidiante recibidos ]")
-        res.status(200).json({
-           // status: "datos recibidos",
-            students: data.getStudents
-        })
-    }
-    catch (err) {
-        res.status(400).json({
-            error: err
-        });
-    }
-};
-
-
-// studentCtrl.getStudents = async(req,res)=>{
+// studentCtrl.getStudents = async (req, res) => {
 //     try {
-//         const students = await Student.find();
-//         res.json(students);
+//         const data = await request (endpoint, queries.getStudents)
+//         //console.log(JSON.stringify(data.getStudents,undefined,2))
+//         console.log("[ datos del estidiante recibidos ]")
+//         res.status(200).json({
+//            // status: "datos recibidos",
+//             students: data.getStudents
+//         })
 //     }
 //     catch (err) {
 //         res.status(400).json({
@@ -34,16 +21,29 @@ studentCtrl.getStudents = async (req, res) => {
 //     }
 // };
 
+
+studentCtrl.getStudents = async(req,res)=>{
+    try {
+        const students = await Student.find();
+        res.json(students);
+    }
+    catch (err) {
+        res.status(400).json({
+            error: err
+        });
+    }
+};
+
 studentCtrl.getStudentNumero_control = async (req, res) => {
     try {
-        const student = {
+        const students = {
             numero_control: req.params.numero_control
         }
-        const data = await request(endpoint, queries.getStudentNumero_control, student)
+        const data = await request(endpoint, queries.getStudentNumero_control, students)
         console.log(JSON.stringify(data.getStudentNumero_control, undefined, 2))
         res.status(200).json({
             status:"succes",
-            student: data.getStudentNumero_control 
+            students: data.getStudentNumero_control 
         })
     }
     catch (err) {
@@ -57,11 +57,9 @@ studentCtrl.getStudentNumero_control = async (req, res) => {
 studentCtrl.createStudent = async (req, res) => {
     try {
         const {
-            name,
             registration_number }  = req.body;
 
         const newStudent = new Student({
-            name,
             registration_number });
         await newStudent.save();
         const students = await Student.find();
