@@ -6,6 +6,7 @@ const classrooSchema = new Schema(
         type:String,
         required: true
     },
+    
     location: { //ubicacion 
         type:String,
         required: true

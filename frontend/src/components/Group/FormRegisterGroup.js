@@ -1,4 +1,6 @@
 import React,{Component, Fragment} from 'react'
+import  Error  from '../Partials/error';
+import Success from '../Partials/success'
 import Axios from 'axios'
 
 
@@ -54,7 +56,8 @@ export default class RegisterGroup extends Component{
     }
 
     onSubmit = async(e)=>{
-        e.preventDefault()
+        try {
+            e.preventDefault()
         const newGroup = {
             name:this.state.name,
             level:this.state.level,
@@ -93,7 +96,14 @@ export default class RegisterGroup extends Component{
         }
         console.log('Data: ',newGroup)
         await Axios.post('http://localhost:4000/backend/groups', newGroup)
-       //console.log(rest.data)
+        this.setState({
+            SuccesShow: true
+        })
+        } catch (error) {
+            this.setState({
+                ErrorShow: true
+            })
+        }
     }
 
     getIdiomas = async()=>{
@@ -115,8 +125,13 @@ export default class RegisterGroup extends Component{
      }
         
 render(){
+    let error = (this.state.ErrorShow) ? <Error/> : ''
+    let succes = (this.state.SuccesShow) ? <Success/> : ''
 return(
+    
 <Fragment>
+    {error}
+    {succes}
     <div className="content-fluid">
         <h2 className="text-center">Registro de Grupos-Horarios</h2>
     </div>

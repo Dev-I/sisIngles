@@ -16,8 +16,8 @@ export default class Estudiantes extends Component {
 
     getStudents = async()=>{
         const res = await Axios.get('http://localhost:4000/backend/students')
-        this.setState({students: res.data.students})
-        console.log(res.data)
+        this.setState({students: res.data})
+        console.log()
         
     }
 
@@ -38,7 +38,7 @@ render() {
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
                                     <th>Apellido Materno</th>
-                                    <th>Num. Control</th>
+                                    <th>Num.Control</th>
                                     <th>Carrera</th>
                                 </tr>
                             </thead>

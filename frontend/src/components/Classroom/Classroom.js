@@ -31,14 +31,14 @@ render() {
                         <h4 className="card-title ">Estudiantes</h4>
                         <p className="card-category">Listado de los estudiates con sus datos generales</p>
                     </div>
-                        <table className="table" >
+                        <table className="table">
                             <thead className="text-center">
                                 <tr>
-                                    <th>nombre del Aula</th>
+                                    <th>Nombre del Aula</th>
                                     <th>Capacidad</th>
                                     <th>Estado del Aula</th>
-                                    <th>Actializar</th>
-                                </tr>4
+                                    <th>Acciones</th>
+                                </tr>
                             </thead>
     
                             {this.state.classrooms.map(classroom => (

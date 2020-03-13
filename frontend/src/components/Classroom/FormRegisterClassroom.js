@@ -1,19 +1,20 @@
 import React, {Component, Fragment} from 'react'
+import Success from '../Partials/success'
+import Error from '../Partials/error';
 import Axios from 'axios'; 
-export default class ClassroomRegister extends Component{
 
+export default class ClassroomRegister extends Component{
     state={
-        classroom:[],
         name:'',
         location:'',
         size:'',
         description:'',
         status: false,
         editing: false,
-        _id: ''
-        
+        _id: '',
+        SuccesShow:false,
+        ErrorShow : false
     }
-
     componentDidMount = async()=>{
         console.log(this.props.match.params)
         if (this.props.match.params.id) {
@@ -31,23 +32,32 @@ export default class ClassroomRegister extends Component{
         }
     }
 
-
+    
     onSubmit = async(e)=>{
         e.preventDefault();
-        const newClasroom = {
-            name: this.state.name,
-            location: this.state.location,
-            size: this.state.size,
-            description:this.state.description,
-            status:this.state.status
-        } 
-        if (this.state.editing) {
-            await Axios.put('http://localhost:4000/backend/classrooms/' + this.state._id, newClasroom)
-            
-        }else{
-            await Axios.post ('http://localhost:4000/backend/classrooms',newClasroom)
-        }
+        try {
+            const newClasroom = {
+                name: this.state.name,
+                location: this.state.location,
+                size: this.state.size,
+                description:this.state.description,
+                status:this.state.status
+            } 
+            if (this.state.editing) {
+                await Axios.put('http://localhost:4000/backend/classrooms/' + this.state._id, newClasroom)
+               
+            }else{
+               await Axios.post ('http://localhost:4000/backend/classrooms',newClasroom)
+                this.setState({
+                    SuccesShow: true
+                })
+            }
+        } catch (error) {
+            this.setState({
+                ErrorShow: true
+            })
         
+        }
     }
     onInputChange = (e) =>{
         this.setState({
@@ -57,13 +67,17 @@ export default class ClassroomRegister extends Component{
     }
     
 render(){
-    return(
+    let error = (this.state.ErrorShow) ? <Error/> : ''
 
+    let succes = (this.state.SuccesShow) ? <Success/> : ''
+    return(
         <Fragment>
+           {succes}
+           {error}
+
             <div className="text-center">
                 <h2>Registro de aulas</h2>
             </div>
-
             <div className="content-fluid">
                 <div className="card">
                     <div className="card-header card-header-info">
@@ -73,22 +87,21 @@ render(){
                     <div className="card-body">
                         <div className="row justify-content-center">
                             <form className="col-xl-10 m-3" onSubmit={this.onSubmit}>
-
                                 <div className="form-row">
                                     <div className="form-group col-md-4">
-                                        <label className="bmd-label-floating">Nombre del aula</label>
+                                        <label className="">Nombre del aula</label>
                                         <input type="text" className="form-control" placeholder="Nombre del Aula"  name="name" onChange={this.onInputChange} value={this.state.name}/>
                                     </div>
                                     <div className=" form-group col-md-4">
-                                        <label className="bmd-label-floating">ubicacion </label>
-                                        <input type="text" className="form-control" placeholder= "Ubicacion" name="location" onChange={this.onInputChange} value={this.state.location}/>
+                                        <label className="">Ubicación </label>
+                                        <input type="text" className="form-control" placeholder= "Ubicacion" name="location" value={this.state.location} onChange={this.onInputChange}/>
                                     </div>
                                     <div className="form-group col-md-4">
-                                        <label className="bmd-label-floating">Capacidad </label>
+                                        <label className="">Capacidad </label>
                                         <input type="text" className="form-control"  placeholder="Capacidad"  name="size" onChange={this.onInputChange} value={this.state.size}/>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label className="bmd-label-floating">Descripcion </label>
+                                        <label className="">Descripcion </label>
                                         <textarea type="text" className="form-control"  placeholder="Descripcion" name="description" rows="4" onChange= {this.onInputChange}
                                             value={this.state.description} />
                                     </div>
@@ -102,7 +115,7 @@ render(){
                                         </label>
                                     </div>
                                 </div>
-                                <button type="submit" className="btn btn-danger float-right">Guardar</button>
+                                <button type="submit" className="btn btn-danger float-right" >Guardar</button>
                             </form>
 
                         </div>

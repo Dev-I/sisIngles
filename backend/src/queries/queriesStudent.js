@@ -42,8 +42,4 @@ getStudentNumero_control(numero_control: $numero_control){
             correo_electronico
             estilo_aprendizaje
 	}
-}
-`
-
-
-   
+}`

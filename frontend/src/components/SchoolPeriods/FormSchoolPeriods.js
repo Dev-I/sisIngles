@@ -1,4 +1,6 @@
 import React, {Component, Fragment} from 'react';
+import Success from '../Partials/success'
+import Error from '../Partials/error';
 import Axios from 'axios';
 
 export default class FormSchoolPeriod extends Component{
@@ -10,7 +12,9 @@ export default class FormSchoolPeriod extends Component{
         year: new Date().getFullYear(),
         period:'',
         start: new Date(),
-        finish: new Date()
+        finish: new Date(),
+        SuccesShow:false,
+        ErrorShow : false
     }
 
     onInputChange = (e) =>{
@@ -21,7 +25,8 @@ export default class FormSchoolPeriod extends Component{
     }
 
     onSubmit=async(e)=>{
-        e.preventDefault();
+        try {
+            e.preventDefault();
         const NewPeriod = {
             year: this.state.year,
             period: this.state.period,
@@ -29,13 +34,27 @@ export default class FormSchoolPeriod extends Component{
             finish: this.state.finish
     } 
         await Axios.post('http://localhost:4000/backend/periods',NewPeriod)
+        this.setState({
+            SuccesShow:true
+        })
+        } catch (error) {
+            this.setState({
+                ErrorShow: true
+            })
+        }
+        
 }
 
 
 render(){
+    let error = (this.state.ErrorShow) ? <Error/> : ''
+    let succes = (this.state.SuccesShow) ? <Success/> : ''
+    
     return(
-
+       
         <Fragment>
+            {succes}
+            {error}
             <div className="container text-center">
                 <h2>Registro de Periodos escolares</h2>
             </div>

@@ -1,4 +1,6 @@
 import React ,{Component, Fragment} from 'react'
+import  Error  from '../Partials/error';
+import Success from '../Partials/success'
 import Axios from 'axios'
 
 export default class FormLenguages extends Component{
@@ -8,6 +10,8 @@ export default class FormLenguages extends Component{
         key:'',
         lenguage:'',
         editing: false,
+        SuccesShow:false,
+        ErrorShow : false,
         _id: ''
         
     }
@@ -27,6 +31,7 @@ export default class FormLenguages extends Component{
     }
 
     onSubmit = async(e)=>{
+       try {
         e.preventDefault();
         const newLenguage = {
             key: this.state.key,
@@ -36,9 +41,16 @@ export default class FormLenguages extends Component{
             await Axios.put('http://localhost:4000/backend/lenguages/' + this.state._id, newLenguage)
             
         }else{
-           const res = await Axios.post('http://localhost:4000/backend/lenguages',newLenguage)
-           console.log(res.data)
+            await Axios.post('http://localhost:4000/backend/lenguages',newLenguage)
+            this.setState({
+            SuccesShow:true
+        })
         }
+       } catch (error) {
+        this.setState({
+            ErrorShow: true
+        })
+       }
         
     }
     onInputChange = (e) =>{
@@ -49,8 +61,12 @@ export default class FormLenguages extends Component{
     }
 
 render(){
+    let error = (this.state.ErrorShow) ? <Error/> : ''
+    let succes = (this.state.SuccesShow) ? <Success/> : ''
     return(
         <Fragment>
+            {error}
+            {succes}
             <div className="text-center">
                 <h1>Registro de un lenguage</h1>
             </div>

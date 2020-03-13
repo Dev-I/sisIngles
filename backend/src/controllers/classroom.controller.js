@@ -29,10 +29,13 @@ classroomCtrl.createClassroom = async(req, res)=>{
             description,
             status});
         await newClassroom.save();
-        res.json('aula creada');
+        res.status(200).json({
+            status: 200
+        })
+       console.log('aula creada');
     } catch (e) {
         console.log(e)
-        res.json(e.errmsg);
+        res.json(e.errmsg)
     }
 }
 

@@ -2,12 +2,12 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-const Students = require('./routes/Student.route');
-const CourseLevel = require('./routes/CoursesLevel.route');
-const Classroom = require('./routes/Classroom.route');
-const Lenguages = require('./routes/Lenguages.route');
-const SchoolPeriods = require('./routes/SchoolPeriods.route');
-const Group = require('./routes/Group.route');
+const Students = require('./routes/Student.routes');
+const CourseLevel = require('./routes/CoursesLevel.routes');
+const Classroom = require('./routes/Classroom.routes');
+const Lenguages = require('./routes/Lenguages.routes');
+const SchoolPeriods = require('./routes/SchoolPeriods.routes');
+const Group = require('./routes/Group.routes');
 
 
 //settings

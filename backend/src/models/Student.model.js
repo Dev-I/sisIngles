@@ -4,7 +4,8 @@ const {Schema, model} = require ('mongoose');
 const studentSchema = new Schema(
     {
         registration_number:{
-            type: String
+            type: String,
+            unique:true
         }
     },
     {
